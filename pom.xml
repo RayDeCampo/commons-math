@@ -1010,5 +1010,6 @@
     <module>commons-math4-core</module>
     <module>commons-math4-geometry</module>
     <module>commons-math4-optimizers</module>
+    <module>commons-math4-machine-learning</module>
   </modules>
 </project>
