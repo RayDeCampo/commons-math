@@ -24,6 +24,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.commons</groupId>
   <artifactId>commons-math4</artifactId>
+  <packaging>pom</packaging>
   <version>4.0-SNAPSHOT</version>
   <name>Apache Commons Math</name>
 
@@ -364,76 +365,99 @@
     </contributor>
   </contributors>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-numbers-core</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-numbers-core</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+  
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-numbers-gamma</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+  
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-numbers-combinatorics</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+  
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-numbers-arrays</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+  
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-numbers-angle</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+  
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-rng-client-api</artifactId>
+        <version>1.0</version>
+      </dependency>
+  
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-rng-simple</artifactId>
+        <version>1.0</version>
+      </dependency>
+  
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-rng-sampling</artifactId>
+        <version>1.1-SNAPSHOT</version>
+      </dependency>
+  
+      <dependency>
+        <groupId>org.openjdk.jmh</groupId>
+        <artifactId>jmh-core</artifactId>
+        <version>${jmh.version}</version>
+        <scope>test</scope>
+      </dependency>
+  
+      <dependency>
+        <groupId>org.openjdk.jmh</groupId>
+        <artifactId>jmh-generator-annprocess</artifactId>
+        <version>${jmh.version}</version>
+        <scope>test</scope>
+      </dependency>
+  
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.11</version>
+        <scope>test</scope>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-math4-core</artifactId>
+        <version>4.0-SNAPSHOT</version>
+      </dependency>
 
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-numbers-gamma</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-math4-core</artifactId>
+        <version>4.0-SNAPSHOT</version>
+        <type>test-jar</type>
+        <scope>test</scope>
+      </dependency>
 
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-numbers-combinatorics</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-math4-geometry</artifactId>
+        <version>4.0-SNAPSHOT</version>
+      </dependency>
 
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-numbers-arrays</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-numbers-angle</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-rng-client-api</artifactId>
-      <version>1.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-rng-simple</artifactId>
-      <version>1.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-rng-sampling</artifactId>
-      <version>1.1-SNAPSHOT</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.openjdk.jmh</groupId>
-      <artifactId>jmh-core</artifactId>
-      <version>${jmh.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.openjdk.jmh</groupId>
-      <artifactId>jmh-generator-annprocess</artifactId>
-      <version>${jmh.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+    </dependencies>
+  </dependencyManagement>
 
   <properties>
     <!-- Do not change: "math" is the name of the component even if the
@@ -498,21 +522,94 @@
   </properties>
 
   <build>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
+      <pluginManagement>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+              <configuration>
+                <includes>
+                  <include>**/*Test.java</include>
+                  <include>**/*TestBinary.java</include>
+                  <include>**/*TestPermutations.java</include>
+                </includes>
+                <excludes>
+                  <exclude>**/*AbstractTest.java</exclude>
+                </excludes>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>clirr-maven-plugin</artifactId>
+            <version>${math.clirr.version}</version>
             <configuration>
-              <includes>
-                <include>**/*Test.java</include>
-                <include>**/*TestBinary.java</include>
-                <include>**/*TestPermutations.java</include>
-              </includes>
-              <excludes>
-                <exclude>**/*AbstractTest.java</exclude>
-              </excludes>
+              <minSeverity>${minSeverity}</minSeverity>
+              <ignoredDifferencesFile>${basedir}/clirr-ignored.xml</ignoredDifferencesFile>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        <plugin>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>${math.pmd.version}</version>
+          <configuration>
+            <targetJdk>${maven.compiler.target}</targetJdk>
+            <skipEmptyReport>false</skipEmptyReport>
+            <rulesets>
+              <ruleset>${basedir}/pmd-ruleset.xml</ruleset>
+            </rulesets>
           </configuration>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-scm-publish-plugin</artifactId>
+          <configuration>
+            <ignorePathsToDelete>
+              <ignorePathToDelete>javadocs</ignorePathToDelete>
+            </ignorePathsToDelete>
+          </configuration>
+        </plugin>
+  
+        <!--  Attaches the commons-math4 tools JAR to the Maven lifecycle
+              to ensure they will be signed and deployed as normal -->
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>1.7</version>
+          <executions>
+            <execution>
+              <id>attach-artifacts</id>
+              <phase>package</phase>
+              <goals>
+                <goal>attach-artifact</goal>
+              </goals>
+              <configuration>
+                <artifacts>
+                  <artifact>
+                    <file>${project.build.directory}/${project.artifactId}-${project.version}-tools.jar</file>
+                    <type>jar</type>
+                    <classifier>tools</classifier>
+                  </artifact>
+                </artifacts>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <!--  MathJax -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <configuration>
+            <additionalparam>${mathjax.javadoc.qualifier} -header '&lt;script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"&gt;&lt;/script&gt;'</additionalparam>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
         <plugin>
           <artifactId>maven-assembly-plugin</artifactId>
           <configuration>
@@ -525,105 +622,36 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>clirr-maven-plugin</artifactId>
-          <version>${math.clirr.version}</version>
-          <configuration>
-            <minSeverity>${minSeverity}</minSeverity>
-            <ignoredDifferencesFile>${basedir}/clirr-ignored.xml</ignoredDifferencesFile>
-          </configuration>
+          <artifactId>maven-antrun-plugin</artifactId>
           <executions>
             <execution>
+              <phase>never-package</phase>
+              <configuration>
+                <target>
+                  <jar destfile="${project.build.directory}/${project.artifactId}-${project.version}-tools.jar">
+                    <metainf dir="${basedir}" includes="NOTICE.txt,LICENSE.txt" />
+                    <manifest>
+                      <attribute name="Specification-Title" value="${project.name} Tools" />
+                      <attribute name="Implementation-Title" value="${project.name} Tools" />
+                      <attribute name="Implementation-Vendor" value="${project.organization.name}" />
+                      <attribute name="Implementation-Version" value="${project.version}" />
+                      <attribute name="Implementation-Vendor-Id" value="org.apache" />
+                      <attribute name="Implementation-Build" value="${implementation.build}"/>
+                      <attribute name="X-Compile-Source-JDK" value="${maven.compiler.source}" />
+                      <attribute name="X-Compile-Target-JDK" value="${maven.compiler.target}" />
+                    </manifest>
+                    <fileset dir="${project.build.directory}/test-classes"
+                             includes="org/apache/commons/math4/PerfTestUtils*" />
+                  </jar>
+                </target>
+              </configuration>
               <goals>
+                <goal>run</goal>
               </goals>
             </execution>
           </executions>
         </plugin>
-      <plugin>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>${math.pmd.version}</version>
-        <configuration>
-          <targetJdk>${maven.compiler.target}</targetJdk>
-          <skipEmptyReport>false</skipEmptyReport>
-          <rulesets>
-            <ruleset>${basedir}/pmd-ruleset.xml</ruleset>
-          </rulesets>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-scm-publish-plugin</artifactId>
-        <configuration>
-          <ignorePathsToDelete>
-            <ignorePathToDelete>javadocs</ignorePathToDelete>
-          </ignorePathsToDelete>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <configuration>
-              <target>
-                <jar destfile="${project.build.directory}/${project.artifactId}-${project.version}-tools.jar">
-                  <metainf dir="${basedir}" includes="NOTICE.txt,LICENSE.txt" />
-                  <manifest>
-                    <attribute name="Specification-Title" value="${project.name} Tools" />
-                    <attribute name="Implementation-Title" value="${project.name} Tools" />
-                    <attribute name="Implementation-Vendor" value="${project.organization.name}" />
-                    <attribute name="Implementation-Version" value="${project.version}" />
-                    <attribute name="Implementation-Vendor-Id" value="org.apache" />
-                    <attribute name="Implementation-Build" value="${implementation.build}"/>
-                    <attribute name="X-Compile-Source-JDK" value="${maven.compiler.source}" />
-                    <attribute name="X-Compile-Target-JDK" value="${maven.compiler.target}" />
-                  </manifest>
-                  <fileset dir="${project.build.directory}/test-classes"
-                           includes="org/apache/commons/math4/PerfTestUtils*" />
-                </jar>
-              </target>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <!--  Attaches the commons-math4 tools JAR to the Maven lifecycle
-            to ensure they will be signed and deployed as normal -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <version>1.7</version>
-        <executions>
-          <execution>
-            <id>attach-artifacts</id>
-            <phase>package</phase>
-            <goals>
-              <goal>attach-artifact</goal>
-            </goals>
-            <configuration>
-              <artifacts>
-                <artifact>
-                  <file>${project.build.directory}/${project.artifactId}-${project.version}-tools.jar</file>
-                  <type>jar</type>
-                  <classifier>tools</classifier>
-                </artifact>
-              </artifacts>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <!--  MathJax -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <additionalparam>${mathjax.javadoc.qualifier} -header '&lt;script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"&gt;&lt;/script&gt;'</additionalparam>
-        </configuration>
-      </plugin>
-    </plugins>
+      </plugins>
   </build>
 
   <reporting>
@@ -977,4 +1005,10 @@
       </properties>
     </profile>
   </profiles>
+  
+  <modules>
+    <module>commons-math4-core</module>
+    <module>commons-math4-geometry</module>
+    <module>commons-math4-optimizers</module>
+  </modules>
 </project>
