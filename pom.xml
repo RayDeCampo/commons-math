@@ -1011,5 +1011,6 @@
     <module>commons-math4-geometry</module>
     <module>commons-math4-optimizers</module>
     <module>commons-math4-machine-learning</module>
+    <module>commons-math4-differential-equations</module>
   </modules>
 </project>
