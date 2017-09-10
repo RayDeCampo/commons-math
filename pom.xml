@@ -1012,5 +1012,6 @@
     <module>commons-math4-optimizers</module>
     <module>commons-math4-machine-learning</module>
     <module>commons-math4-differential-equations</module>
+    <module>commons-math4-filter</module>
   </modules>
 </project>
